@@ -47,10 +47,10 @@ RSpec.describe RoomsController, type: :controller do
       end
 
       it 'renders a JSON response with the new room' do
-        post :create, params: { room: FactoryBot.attributes_for(:room) }
+        post :create, params: { room: FactoryBot.attributes_for(:room, name: 'a new room') }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(room_url(Room.last))
+        expect(response.body).to include('a new room')
       end
     end
 

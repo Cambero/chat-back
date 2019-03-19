@@ -9,4 +9,6 @@ class Room
 
   validates :name, presence: true
   validates :owner, presence: true
+
+  embeds_many :messages, cascade_callbacks: true
 end
