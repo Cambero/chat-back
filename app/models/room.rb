@@ -11,4 +11,8 @@ class Room
   validates :owner, presence: true
 
   embeds_many :messages, cascade_callbacks: true
+
+  def lastests_messages
+    messages.order_by(created_at: :desc).limit(20).reverse
+  end
 end

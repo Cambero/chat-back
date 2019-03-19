@@ -5,12 +5,11 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.all
-
-    render json: @rooms
+    render json: @rooms, each_serializer: RoomIndexSerializer
   end
 
   def show
-    render json: @room
+    render json: @room, serializer: RoomShowSerializer
   end
 
   def create

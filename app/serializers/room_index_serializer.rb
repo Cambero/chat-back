@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RoomSerializer < ActiveModel::Serializer
+class RoomIndexSerializer < ActiveModel::Serializer
   attributes %i[id name owner created_at]
 
   def id
