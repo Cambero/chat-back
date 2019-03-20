@@ -12,6 +12,14 @@ class Room
 
   embeds_many :messages, cascade_callbacks: true
 
+  set_callback(:save, :after) do |message|
+    ActionCable.server.broadcast(
+      'room_list',
+      name: message.name,
+      owner: message.owner
+    )
+  end
+
   def lastests_messages
     messages.order_by(created_at: :desc).limit(20).reverse
   end

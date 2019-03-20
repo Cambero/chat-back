@@ -4,4 +4,6 @@ Rails.application.routes.draw do
       resources :messages, only: :create
     end
   end
+
+  mount ActionCable.server => '/cable'
 end

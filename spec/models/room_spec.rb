@@ -17,4 +17,9 @@ RSpec.describe Room, type: :model do
     expected_rooms = room.messages.reverse.take(20)
     expect(room.lastests_messages).to match_array(expected_rooms)
   end
+
+  it 'after save broadcast the room' do
+    room = FactoryBot.build(:room)
+    expect { room.save }.to have_broadcasted_to('room_list')
+  end
 end
