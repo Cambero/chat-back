@@ -5,18 +5,20 @@ class Room
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :owner, type: String
+
+  belongs_to :user
 
   validates :name, presence: true
-  validates :owner, presence: true
+  validates :user, presence: true
 
   embeds_many :messages, cascade_callbacks: true
 
-  set_callback(:save, :after) do |message|
+  set_callback(:save, :after) do |room|
     ActionCable.server.broadcast(
       'room_list',
-      name: message.name,
-      owner: message.owner
+      id:   room.id.to_s,
+      name: room.name,
+      user: room.user.username
     )
   end
 
