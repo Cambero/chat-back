@@ -13,7 +13,7 @@ class Room
 
   embeds_many :messages, cascade_callbacks: true
 
-  set_callback(:save, :after) do |room|
+  set_callback(:create, :after) do |room|
     ActionCable.server.broadcast(
       'room_list',
       id:   room.id.to_s,

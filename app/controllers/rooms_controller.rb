@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   before_action :set_room, only: :show
 
   def index
-    @rooms = Room.all
+    @rooms = Room.all.order(created_at: :desc)
     render json: @rooms, each_serializer: RoomIndexSerializer
   end
 
@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      render json: @room, status: :created
+      render json: @room, serializer: RoomShowSerializer , status: :created
     else
       render json: @room.errors, status: :unprocessable_entity
     end

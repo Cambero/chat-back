@@ -12,7 +12,7 @@ class Message
 
   embedded_in :room
 
-  set_callback(:save, :after) do |message|
+  set_callback(:create, :after) do |message|
     ActionCable.server.broadcast(
       "room_#{room.id}",
       content: message.content,
