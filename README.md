@@ -1,15 +1,24 @@
-#### Ruby version
+### Ruby version
+```
 2.5.3
+```
 
-#### System dependencies
+### System dependencies
+```
 mongodb
+```
 
-
-#### Install
+### Install
+```
 bundle Install
+```
 
-#### Run
+### Run
+```
 rails server
+```
 
-##### Test
+#### Test
+```
 rspec
+```
