@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(room_params)
     if @room.save
-      render json: @room, serializer: RoomShowSerializer , status: :created
+      render json: @room, serializer: RoomShowSerializer, status: :created
     else
       render json: @room.errors, status: :unprocessable_entity
     end
@@ -28,6 +28,6 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :user)
+    params.require(:room).permit(:name, :user_id)
   end
 end

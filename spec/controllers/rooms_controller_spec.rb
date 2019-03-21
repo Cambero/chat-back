@@ -39,18 +39,21 @@ RSpec.describe RoomsController, type: :controller do
   end
 
   describe 'POST #create' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:room) { FactoryBot.build(:room, user: user) }
+
     context 'with valid params' do
       it 'creates a new Room' do
         expect do
-          post :create, params: { room: FactoryBot.attributes_for(:room) }
+          post :create, params: { room: room.attributes }
         end.to change(Room, :count).by(1)
       end
 
       it 'renders a JSON response with the new room' do
-        post :create, params: { room: FactoryBot.attributes_for(:room, name: 'a new room') }
+        post :create, params: { room: room.attributes }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.body).to include('a new room')
+        expect(JSON.parse(response.body)['name']).to eq(room.name)
       end
     end
 

@@ -6,10 +6,12 @@ RSpec.describe Room, type: :model do
   it { is_expected.to be_mongoid_document }
   it { is_expected.to have_timestamps }
 
-  it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:owner) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:user) }
 
   it { is_expected.to embed_many(:messages) }
+
+  it { is_expected.to belong_to(:user) }
 
   it 'lastests_messages return 20 lastests messages in reverse order' do
     room = FactoryBot.create(:room)

@@ -20,15 +20,17 @@ RSpec.describe 'Rooms', type: :request do
   end
 
   describe 'POST #create' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:room) { FactoryBot.build(:room, user: user) }
     it 'creates a new room' do
       expect do
-        post rooms_path, params: { room: FactoryBot.attributes_for(:room) }
+        post rooms_path, params: { room: room.attributes }
       end.to change(Room, :count).by(1)
     end
 
-    it 'return created room' do
-      post rooms_path, params: { room: FactoryBot.attributes_for(:room, name: 'room created') }
-      expect(JSON.parse(response.body).fetch('name')).to eq('room created')
+    it 'return created room asociated to user' do
+      post rooms_path, params: { room: room.attributes }
+      expect(JSON.parse(response.body).fetch('user')).to eq(user.username)
     end
   end
 end

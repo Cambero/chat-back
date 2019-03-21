@@ -9,14 +9,13 @@ class Room
   belongs_to :user
 
   validates :name, presence: true
-  validates :user, presence: true
 
   embeds_many :messages, cascade_callbacks: true
 
   set_callback(:create, :after) do |room|
     ActionCable.server.broadcast(
       'room_list',
-      id:   room.id.to_s,
+      id: room.id.to_s,
       name: room.name,
       user: room.user.username
     )

@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :room do
     sequence(:name) { |n| "Room #{n}" }
-    owner { 'AnyUser' }
+    user
 
     trait :invalid do
       name { nil }

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def create
-    if @user = User.authenticate(session_params[:username], session_params[:password])
+    if (@user = User.authenticate(session_params[:username], session_params[:password]))
       render json: @user, status: :created
     else
       render json: { error: 'Invalid credentials' }, status: :unauthorized
