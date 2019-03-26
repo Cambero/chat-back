@@ -6,6 +6,7 @@
 ### System dependencies
 ```
 mongodb
+redis
 ```
 
 ### Install
