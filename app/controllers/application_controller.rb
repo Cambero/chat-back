@@ -8,19 +8,18 @@ class ApplicationController < ActionController::API
 
   protect_from_forgery with: :exception
 
-
-  rescue_from Mongoid::Errors::DocumentNotFound do |e|
-    render json: { error: "Not Found" }, status: :not_found
+  rescue_from Mongoid::Errors::DocumentNotFound do |_e|
+    render json: { error: 'Not Found' }, status: :not_found
   end
 
-  rescue_from ActionController::InvalidAuthenticityToken do |e|
-    render json: { error: "Invalid token" }, status: :unauthorized
+  rescue_from ActionController::InvalidAuthenticityToken do |_e|
+    render json: { error: 'Invalid token' }, status: :unauthorized
   end
 
   private
 
   def set_csrf_cookie
-    cookies["CSRF-TOKEN"] = form_authenticity_token
+    cookies['CSRF-TOKEN'] = form_authenticity_token
   end
 
   def authenticate_user

@@ -13,6 +13,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    channel_with_prefix = 'chat-back_development:action_cable'
+    Redis.new.pubsub('channels', "#{channel_with_prefix}*")
+    online_ids = Redis.new.pubsub('channels', "#{channel_with_prefix}*").map { |c| c.match(%r{#{channel_with_prefix}/(.*)})[1] }
+    # User.in(id: online_ids).map(&:username)
+
+    users = User.all.map do |user|
+      { username: user.username, online: online_ids.include?(user.id.to_s) }
+    end
+
+    render json: users
+  end
+
   private
 
   def user_params
