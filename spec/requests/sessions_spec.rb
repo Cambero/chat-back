@@ -14,10 +14,8 @@ RSpec.describe 'Sessions', type: :request do
 
     it 'Signin with invalid return unauthorized' do
       session_params[:session][:password] = 'wrong'
-      puts session_params
       post session_path, params: session_params
       expect(response).to have_http_status(:unauthorized)
-      puts JSON.parse(response.body)
       expect(JSON.parse(response.body)['error']).to eq('Invalid credentials')
     end
   end
